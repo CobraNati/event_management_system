@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+
+<div class="glass" style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+  <h1><%= event.title %></h1>
+  <div class="meta" style="margin-bottom: 2rem; color: var(--text-muted);">
+    <p><strong>Date:</strong> <%= new Date(event.date).toLocaleString() %></p>
+    <p><strong>Location:</strong> <%= event.location %></p>
+    <p><strong>Organizer:</strong> <%= event.organizer_name %></p>
+    <p><strong>Seats Available:</strong> <span style="color: <%= event.available_seats > 0 ? 'var(--success)' : 'var(--danger)' %>"><%= event.available_seats %></span></p>
+  </div>
+  
+  <div style="margin-bottom: 2rem;">
+    <h3>About this Event</h3>
+    <p style="white-space: pre-wrap;"><%= event.description %></p>
+  </div>
+
+  <div class="actions">
+    <% if (user) { %>
+      <% if (user.role === 'user') { %>
+        <% if (isBooked) { %>
+          <button class="btn btn-primary" disabled style="background: var(--success); cursor: not-allowed;">You have booked this event</button>
+        <% } else if (event.available_seats > 0) { %>
+          <form action="/events/<%= event.id %>/book" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-primary">Book Ticket</button>
+          </form>
+        <% } else { %>
+          <button class="btn btn-danger" disabled style="cursor: not-allowed;">Sold Out</button>
+        <% } %>
+      <% } else { %>
+        <p class="alert alert-success">Organizers cannot book tickets.</p>
+      <% } %>
+    <% } else { %>
+      <a href="/auth/login" class="btn btn-primary">Log in to Book</a>
+    <% } %>
+    <a href="/" class="btn btn-outline" style="margin-left: 1rem;">Back to Events</a>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

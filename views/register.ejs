@@ -1,0 +1,34 @@
+<%- include('partials/header') %>
+
+<div class="glass" style="max-width: 400px; margin: 0 auto; padding: 2rem;">
+  <h2 style="text-align: center;">Create an Account</h2>
+  
+  <form action="/auth/register" method="POST">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="role">Account Type</label>
+      <select id="role" name="role" class="form-control">
+        <option value="user">Regular User (Book Tickets)</option>
+        <option value="organizer">Organizer (Create Events)</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+  </form>
+  
+  <p style="text-align: center; margin-top: 1.5rem;">
+    Already have an account? <a href="/auth/login">Login</a>
+  </p>
+</div>
+
+<%- include('partials/footer') %>
